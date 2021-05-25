@@ -3,9 +3,9 @@ var numbers = ["Ace",'two','three','four','five','six','seven','eight','nine','t
 
 var cards = [];
 var specialCards = [];
-var regCards = [];
-var card3 = [];
-var card4 = [];
+var currentCard = [];
+var cardsUsed = [];
+
 
 var dealer = function () {
 var randomSuit = Math.floor(Math.random() * 4);
@@ -25,63 +25,65 @@ var randomSuit = Math.floor(Math.random() * 4);
 var randomNumber = Math.floor(Math.random() * 13);
   switch (randomNumber) {
   case 0:
+    currentCard = numbers[0] + randomSuit;
     cards.push("Ace");
-    alert(numbers[0] + randomSuit);
     break;    
   case 1:
     cards.push(2);
-    alert(numbers[1] + randomSuit);
+    currentCard = numbers[1] + randomSuit;
     break;
   case 2:
     cards.push(3);
-    alert(numbers[2] + randomSuit);
-    break;
+    currentCard = numbers[2] + randomSuit;
   case 3:
     cards.push(4);
-    alert(numbers[3] + randomSuit);
+    currentCard = numbers[3] + randomSuit;
     break;
   case 4:
     cards.push(5);
-    alert(numbers[4] + randomSuit);
+    currentCard = numbers[4] + randomSuit;
     break;
   case 5:
     cards.push(6);
-    alert(numbers[5] + randomSuit);
+    currentCard = numbers[5] + randomSuit;
     break;
   case 6:
     cards.push(7);
-    alert(numbers[6] + randomSuit); 
+    currentCard = numbers[6] + randomSuit;
     break;
   case 7:
     cards.push(8);
-    alert(numbers[7] + randomSuit);
+    currentCard = numbers[7] + randomSuit;
     break;
   case 8:
     cards.push(9);
-    alert(numbers[8] + randomSuit);
+    currentCard = numbers[8] + randomSuit;
     break;
   case 9:
     cards.push(10);
-    alert(numbers[9] + randomSuit);
+    currentCard = numbers[9] + randomSuit;
     break;
   case 10:
     cards.push('Jack');
-    alert(numbers[10] + randomSuit);
+    currentCard = numbers[10] + randomSuit;
     break;
   case 11:
     cards.push('Queen');
-    alert(numbers[11] + randomSuit);
+    currentCard = numbers[11] + randomSuit;
     break;
   case 12:
     cards.push('King');
-    alert(numbers[12] + randomSuit);
-    break;
-  default:
-    console.log('not sure what weather this is');
+    currentCard = numbers[12] + randomSuit;
     break;
 }
+  cardsUsed.push(currentCard);
+  
+    alert(currentCard);
 
-var index = cards.indexOf('Ace');
+};
+
+var sortCards = function () {
+  var index = cards.indexOf('Ace');
 if (index !== -1) {
   specialCards.push('Ace');
   cards.splice(index, 1);
@@ -96,28 +98,85 @@ if (index1 !== -1) {
 var index2 = cards.indexOf('Queen');
 if (index2 !== -1) {
   specialCards.push('Queen');
-  cards.splice(index1, 1);
+  cards.splice(index2, 1);
 };
 
 var index3 = cards.indexOf('King');
 if (index3 !== -1) {
   specialCards.push('King');
-  cards.splice(index1, 1);
+  cards.splice(index3, 1);
+};
+};
+
+ var checkForBlackjack = function () {
+   var ace = specialCards.indexOf('Ace');
+   var king = specialCards.indexOf('King');
+   var queen = specialCards.indexOf('Queen');
+   var jack = specialCards.indexOf('Jack');
+     if (jack !== -1  || queen !== -1 || king !== -1 || cards === 10) {
+       if (ace !== -1) {
+        cards = 21;
+    };
+ };
+};
+
+
+var addCards = function () {
+  
+  var jack = specialCards.indexOf('Jack');
+  var queen = specialCards.indexOf('Queen');
+  var king = specialCards.indexOf('King');
+  
+  if (jack !== -1) {
+    cards.push(10);
+  };
+  if (queen !== -1) {
+    cards.push(10);
+  };
+  if (king !== -1) {
+    cards.push(10);
+  };
+  
+  var sum = cards.reduce(function (sum, number) {
+  return sum + number;
+ });
+
+ cards = sum;
+
+  var ace = specialCards.indexOf('Ace');
+  if (ace !== -1) {
+    if (cards < 11) {
+      cards = sum + 11;      
+    } else {
+      cards = sum + 1;
+    };
+      
+};
+
+  
 };
 
 
 
-
-
-
-
-};
-
-
-
-
-
+var determineWin = function () {
+  if (cards === 21) {
+    console.log('wooohooo');
+  } else if (cards > 21) {
+    console.log('bust!!!')
+  } else {
+    console.log('hit or stand?')
+  };
+}
+ 
 
 dealer();
+dealer();
+sortCards();
+checkForBlackjack();
+addCards();
+determineWin();
 console.log(specialCards);
-console.log(regCards);
+console.log(cards);
+console.log(cardsUsed);
+
+
