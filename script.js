@@ -86,12 +86,9 @@ var randomNumber = Math.floor(Math.random() * 13);
 var checkIfUsed = function (card, num) {
   var checkFor = cardsUsed.indexOf(card);
   if (checkFor !== -1) {
-    console.log('card has been used, executing dealer again');
      dealer();
      checkIfUsed(currentCard);
   } else {cards.push(numbers[num])};
-  console.log('this is cards after you got original cards b4 the splicing and exchanging for numbers');
-  console.log(cards);
 };
 
  var checkForBlackjack = function () {
@@ -199,19 +196,15 @@ var addCards = function () {
       cards.push(1);
     };   
   }; 
-    console.log('this is cards without the sum function yet');
-    console.log(cards);
 
-      sum = cards.reduce(function (sum, number) {
-      return sum + number;
-      });
+  sum = cards.reduce(function (sum, number) {
+  return sum + number;
+  });
 
-      cards = [];
-      cards.push(sum);
-      alert('your cards so far are' + '\n' + cardsUsed);
-      console.log(cards + 'this is cards after sum function');
-      console.log(cards);
-
+  cards = [];
+  cards.push(sum);
+  alert('your cards so far are' + '\n' + cardsUsed + '.');
+  console.log('total so far is ' + cards);
 };
 
 var determineWin = function () {
@@ -222,7 +215,7 @@ var determineWin = function () {
     alert('bust! \nbetter luck next time.');
     playAgain();
   } else {
-    var hitOrStand = prompt('hit or stand?','type "hit" or "stand"');
+    var hitOrStand = prompt('your cards so far are ' + cardsUsed + '.\nhit or stand?','type "hit" or "stand"');
     if (hitOrStand === 'hit') {
       game();
     } else if (hitOrStand === 'stand') {
