@@ -1,0 +1,9 @@
+h1 {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+img {
+  position: absolute;
+  margin-right: 0px;
+}
