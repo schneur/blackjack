@@ -3,7 +3,6 @@ var numbers = ["Ace",'two','three','four','five','six','seven','eight','nine','t
 
 var randomSuit = [];
 var cards = [0];
-var specialCards = [];
 var currentCard = [];
 var cardsUsed = [];
 
@@ -19,7 +18,7 @@ var dealer = function () {
   case 2:
     randomSuit = suits[2];
     break;
-  case 3:
+  default:
     randomSuit = suits[3];
     break;
   };
@@ -28,66 +27,54 @@ var randomNumber = Math.floor(Math.random() * 13);
   case 0:
     currentCard = numbers[0] + randomSuit;
     checkIfUsed(currentCard, 0);
-    specialCards.push("Ace");
     break;    
   case 1:
     currentCard = numbers[1] + randomSuit;
     checkIfUsed(currentCard, 1);
-    cards.push(2);
     break;
   case 2:
     currentCard = numbers[2] + randomSuit;
     checkIfUsed(currentCard, 2);
-    cards.push(3);
+    break;
   case 3:
     currentCard = numbers[3] + randomSuit;
     checkIfUsed(currentCard, 3);
-    cards.push(4);
     break;
   case 4:
     currentCard = numbers[4] + randomSuit;
     checkIfUsed(currentCard, 4);
-    cards.push(5);
     break;
   case 5:
     currentCard = numbers[5] + randomSuit;
     checkIfUsed(currentCard, 5);
-    cards.push(6);
     break;
   case 6:
     currentCard = numbers[6] + randomSuit;
     checkIfUsed(currentCard, 6);
-    cards.push(7);
     break;
   case 7:
     currentCard = numbers[7] + randomSuit;
     checkIfUsed(currentCard, 7);
-    cards.push(8);
     break;
   case 8:
     currentCard = numbers[8] + randomSuit;
     checkIfUsed(currentCard, 8);
-    cards.push(9);
     break;
   case 9:
     currentCard = numbers[9] + randomSuit;
     checkIfUsed(currentCard, 9);
-    cards.push(10);
     break;
   case 10:
     currentCard = numbers[10] + randomSuit;
     checkIfUsed(currentCard, 10);
-    specialCards.push("Jack");
     break;
   case 11:
     currentCard = numbers[11] + randomSuit;
     checkIfUsed(currentCard, 11);
-    specialCards.push("Queen");
     break;
   default:
     currentCard = numbers[12] + randomSuit;
     checkIfUsed(currentCard, 12);
-    specialCards.push("King");
     break;
 }
 
@@ -99,19 +86,25 @@ var randomNumber = Math.floor(Math.random() * 13);
 var checkIfUsed = function (card, num) {
   var checkFor = cardsUsed.indexOf(card);
   if (checkFor !== -1) {
-     currentCard = numbers[num] + randomSuit;
+    console.log('card has been used, executing dealer again');
+     dealer();
      checkIfUsed(currentCard);
-  };
+  } else {cards.push(numbers[num])};
+  console.log('this is cards after you got original cards b4 the splicing and exchanging for numbers');
+  console.log(cards);
 };
 
  var checkForBlackjack = function () {
-   var ace = specialCards.indexOf('Ace');
-   var king = specialCards.indexOf('King');
-   var queen = specialCards.indexOf('Queen');
-   var jack = specialCards.indexOf('Jack');
-     if (jack !== -1  || queen !== -1 || king !== -1 || cards === 10) {
+   var ace = cards.indexOf('Ace');
+   var king = cards.indexOf('King');
+   var queen = cards.indexOf('Queen');
+   var jack = cards.indexOf('Jack');
+   var ten = cards.indexOf('ten');
+     if (jack !== -1  || queen !== -1 || king !== -1 || ten !== -1) {
        if (ace !== -1) {
         cards = 21;
+        alert('yay, Blackjack!');
+        playAgain();
     };
  };
 };
@@ -119,51 +112,107 @@ var checkIfUsed = function (card, num) {
 
 var addCards = function () {
   
-  var jack = specialCards.indexOf('Jack');
-  var queen = specialCards.indexOf('Queen');
-  var king = specialCards.indexOf('King');
+  var two = cards.indexOf('two');
+  var three = cards.indexOf('three');
+  var four = cards.indexOf('four');
+  var five = cards.indexOf('five');
+  var six = cards.indexOf('six');
+  var seven = cards.indexOf('seven');
+  var eight = cards.indexOf('eight');
+  var nine = cards.indexOf('nine');
+  var ten = cards.indexOf('ten');
+  var jack = cards.indexOf('Jack');
+  var queen = cards.indexOf('Queen');
+  var king = cards.indexOf('King');
+  var ace = cards.indexOf('Ace');
   
+  if (two !== -1) {
+    cards.push(2);
+    cards.splice(two, 1);
+  };
+
+  if (three !== -1) {
+    cards.push(3);
+    cards.splice(three, 1);
+  };
+
+  if (four !== -1) {
+    cards.push(4);
+    cards.splice(four, 1);
+  };
+
+  if (five !== -1) {
+    cards.push(5);
+    cards.splice(five, 1);
+  };
+
+  if (six !== -1) {
+    cards.push(6);
+    cards.splice(six, 1);
+  };
+
+  if (seven !== -1) {
+    cards.push(7);
+    cards.splice(seven, 1);
+  };
+
+  if (eight !== -1) {
+    cards.push(8);
+    cards.splice(eight, 1);
+  };
+
+  if (nine !== -1) {
+    cards.push(9);
+    cards.splice(nine, 1);
+  };
+
+  if (ten !== -1) {
+    cards.push(10);
+    cards.splice(ten, 1);
+  };
+
   if (jack !== -1) {
     cards.push(10);
-    specialCards.splice(jack, 1);
+    cards.splice(jack, 1);
   };
+
   if (queen !== -1) {
     cards.push(10);
-    specialCards.splice(queen, 1);
+    cards.splice(queen, 1);
   };
+
   if (king !== -1) {
     cards.push(10);
-    specialCards.splice(king, 1);
+    cards.splice(king, 1);
   };
-  console.log(cards);
-  
-  var sum = cards.reduce(function (sum, number) {
-  return sum + number;
-  });
 
-  var totalArray = [];
-  totalArray.push(sum);
-
-  var ace = specialCards.indexOf('Ace');
   if (ace !== -1) {
-    specialCards.splice(ace, 1);
-    if (totalArray < 11  || totalArray == 10) {
-      totalArray.push(11);
+    cards.splice(ace, 1);
+    var sum = cards.reduce(function (sum, number) {
+      return sum + number;
+      });
+      cards = [];
+      cards.push(sum);
+      if (cards < 11  || cards == 10) {
+      cards.push(11);
     } else {
-      totalArray.push(1);
+      cards.push(1);
     };   
-  };
+  }; 
+    console.log('this is cards without the sum function yet');
+    console.log(cards);
 
-  var sum = totalArray.reduce(function (sum, number) {
-    return sum + number;
-    });
+      sum = cards.reduce(function (sum, number) {
+      return sum + number;
+      });
 
-  cards = [];
-  cards.push(sum);
-  console.log(cards);
-  alert('your cards so far are' + '\n' + cardsUsed);
+      cards = [];
+      cards.push(sum);
+      alert('your cards so far are' + '\n' + cardsUsed);
+      console.log(cards + 'this is cards after sum function');
+      console.log(cards);
+
 };
-
 
 var determineWin = function () {
   if (cards == 21) {
@@ -175,7 +224,6 @@ var determineWin = function () {
   } else {
     var hitOrStand = prompt('hit or stand?','type "hit" or "stand"');
     if (hitOrStand === 'hit') {
-      dealer();
       game();
     } else if (hitOrStand === 'stand') {
       alert('oh man. you can always play again.');
@@ -190,14 +238,17 @@ var determineWin = function () {
 var welcome = function () {
   alert('welcome to Blackjack!');
   dealer();
-  dealer();
   checkForBlackjack();
-  game();
+  addCards();
+  dealer();
+  addCards();
+  determineWin();
 };
 
 
 
 var game = function () { 
+  dealer();
   addCards();
   determineWin(); 
 };
@@ -205,16 +256,13 @@ var game = function () {
 var playAgain = function () {
   var response = confirm('Do you want to play again?');
     if (response) {
-       cards = [0];
-       specialCards = [];
-       currentCard = [];
-       cardsUsed = [];
-       welcome();
+      cards = [0];
+      currentCard = [];
+      cardsUsed = [];
+      welcome();
     } else {
       alert('ok, be like that.');
     }
 };
 
 welcome();
-
-
